@@ -85,7 +85,7 @@ DWORD MainThread(void*)
 
 						case C_UnloadModule:
 							fl.Log("Unloading ...");
-							FreeLibrary(hThisModule);
+							FreeLibraryAndExitThread(hThisModule, 0);
 							break;
 
 						case C_GetModuleBase:
@@ -130,7 +130,6 @@ BOOL WINAPI DllMain(HINSTANCE hModule, DWORD callReason, LPVOID reserved)
 	{
 		if (hThread)
 		{
-			TerminateThread(hThread, 0);
 			s.ClosePipe();
 			fl.Log("Server module is getting unloaded, cya");
 		}
